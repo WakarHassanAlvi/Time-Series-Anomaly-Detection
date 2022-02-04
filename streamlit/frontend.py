@@ -83,12 +83,10 @@ async def make_async_requests(urls, file_details):
 async def make_async_api_call(url, file_details):
     file_url = './data/uploads/'+file_details['FileName']
     files = {'sensor_data': open(file_url, 'rb').read()}
-    sem = asyncio.Semaphore(100)
-    async with sem:
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, data = files) as res:
-                data = await res.json()
-                return data
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, data = files) as res:
+            data = await res.json(content_type=None)
+            return data
 
 def make_api_call(url, file_details):
     files = {'sensor_data': open('./data/uploads/'+file_details['FileName'], 'rb')}
