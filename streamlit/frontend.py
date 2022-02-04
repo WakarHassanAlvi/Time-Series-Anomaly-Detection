@@ -85,7 +85,8 @@ async def make_async_api_call(url, file_details):
     files = {'sensor_data': open(file_url, 'rb').read()}
     async with aiohttp.ClientSession() as session:
         async with session.post(url, data = files) as res:
-            data = await res.json(content_type=None)
+            data = await res.json(content_type='text/html')
+            st.write(data)
             return data
 
 def make_api_call(url, file_details):
