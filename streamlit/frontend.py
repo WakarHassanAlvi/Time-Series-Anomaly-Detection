@@ -13,9 +13,9 @@ st.set_page_config(layout="wide")
 
 sys.path.insert(0, '../api')
 
-lof_url = 'http://127.0.0.1:8000/LOF'
-if_url = 'http://127.0.0.1:8000/IsolationForest'
-stl_url = 'http://127.0.0.1:8000/STL/'
+lof_url = 'https://detect-anomalies.herokuapp.com/LOF'
+if_url = 'https://detect-anomalies.herokuapp.com/IsolationForest'
+stl_url = 'https://detect-anomalies.herokuapp.com/STL/'
 
 def save_uploadedfile(uploadedfile):
 
@@ -152,7 +152,7 @@ def main():
     if stl:
         st.write('Set threshold coefficient:')
         coef = st.slider('', 1, 5, 3)
-        stl_url = 'http://127.0.0.1:8000/STL/?coef='+ str(coef)
+        stl_url = 'https://detect-anomalies.herokuapp.com/STL/?coef='+ str(coef)
         
 
     if st.button("Check Anomalies"):
