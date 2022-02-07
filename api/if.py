@@ -14,7 +14,7 @@ async def index():
    return {"api_name": "Isolation Forest"}
 
 
-@isolation_forest.post("/IsolationForest/")
+@isolation_forest.post("/IF/")
 async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataFrame:
     #read from csv
    dframe = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
