@@ -14,7 +14,7 @@ st.set_page_config(layout="wide")
 sys.path.insert(0, '../api')
 
 lof_url = 'http://127.0.0.1:8000/LOF'
-if_url = 'http://127.0.0.1:8000/IsolationForest'
+if_url = 'https://ts-anomaly-detection-if.herokuapp.com/IsolationForest'
 stl_url = 'http://127.0.0.1:8000/STL/'
 
 def save_uploadedfile(uploadedfile):
