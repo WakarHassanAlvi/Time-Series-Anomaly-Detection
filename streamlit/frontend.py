@@ -98,7 +98,6 @@ def make_api_call(url, file_details):
 def plot_anomalies(df_path, dfBroken, model):
 
     #make a df from the api respnse
-    #anomalies_df = pd.read_json(data, orient='records')
     anomalies_df  = pd.read_csv(df_path)
     
     #plot detected anomalies vs the actual anomalies in the same graph
