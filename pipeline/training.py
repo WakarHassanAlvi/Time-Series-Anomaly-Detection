@@ -65,14 +65,6 @@ def fit_model_lof(dfr):
     pickle.dump(model2, open(filename2, 'wb'))
 
 
-# scores_prediction = model.decision_function(X)
-# y_pred = model.predict(X)
-# y_pred[y_pred == 1] = 0
-# y_pred[y_pred == -1] = 1
-# n_errors = (y_pred != y).sum()
-# print("Isolation Forest: {}".format(n_errors))
-# print("Accuracy Score :")
-
 if __name__ == '__main__':
     import os
     print(os.getcwd())

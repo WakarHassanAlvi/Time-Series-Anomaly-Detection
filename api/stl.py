@@ -16,7 +16,7 @@ async def index():
 async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...)):
    
    file = sensor_data.filename
-   dfsensor, anomalies = stl_decomposition(sensor_data, 3)
+   dfsensor, anomalies = stl_decomposition(sensor_data, int(coef))
    anomalies = anomalies.rename({'0': 'sensor_values'}, axis=1).reset_index()
    dfsensor = dfsensor.reset_index()
    filepathAnomalies = "./data/uploads/stl.csv"
@@ -31,7 +31,7 @@ async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...))
 def stl_decomposition(file, coeff):
     df = get_sensor_data(file)
     sampled_df = sample_sensor_data(df)
-    #print(sampled_df)
+    print(sampled_df)
     stlData = stl_model(sampled_df)
     l, u = get_anomaly_limits(stlData.resid, coeff)
     anomalies = get_anomalies(stlData.resid, sampled_df, l, u)

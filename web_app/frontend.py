@@ -13,9 +13,9 @@ st.set_page_config(layout="wide")
 
 sys.path.insert(0, '../api')
 
-lof_url = 'https://detect-anomalies.herokuapp.com/LOF'
-if_url = 'https://detect-anomalies.herokuapp.com/IsolationForest'
-stl_url = 'https://detect-anomalies.herokuapp.com/STL/'
+lof_url = 'http://127.0.0.1:8000/LOF'
+if_url = 'http://127.0.0.1:8000/IsolationForest'
+stl_url = 'http://127.0.0.1:8000/STL/'
 
 def save_uploadedfile(uploadedfile):
 
@@ -86,7 +86,6 @@ async def make_async_api_call(url, file_details):
     async with aiohttp.ClientSession() as session:
         async with session.post(url, data = files) as res:
             data = await res.json()
-            st.write(data)
             return data
 
 def make_api_call(url, file_details):
@@ -150,7 +149,7 @@ def main():
     if stl:
         st.write('Set threshold coefficient:')
         coef = st.slider('', 1, 5, 3)
-        stl_url = 'https://detect-anomalies.herokuapp.com/STL/?coef='+ str(coef)
+        stl_url = 'http://127.0.0.1:8000/STL/?coef='+ str(coef)
         
 
     if st.button("Check Anomalies"):
