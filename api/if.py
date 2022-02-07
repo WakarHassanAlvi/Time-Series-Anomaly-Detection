@@ -1,6 +1,4 @@
 from fastapi import FastAPI, File, UploadFile
-from pydantic import BaseModel
-from typing import List
 import pandas as pd
 from io import StringIO
 import pickle
@@ -15,32 +13,6 @@ isolation_forest = FastAPI()
 async def index():
    return {"api_name": "Isolation Forest"}
 
-
-class sensor_data(BaseModel):
-    timestamp : pd.Timestamp
-    sensor_values : float
-    machine_status : str
-    
-@isolation_forest.post("/check_anomalies")
-async def check_anomalies(data: List[sensor_data]) -> pd.DataFrame:
-   
-   first = data[0]
-   received = first.dict()
-   df = pd.DataFrame([received])
-   dict = {}
-
-   for index, row  in enumerate(data):
-      row_data = row.dict()
-      #print(index)
-      if(index!=0):
-         df2 = pd.DataFrame([row_data])
-         df = df.append(df2, ignore_index=True)
-   
-   #set timestamp as index
-   df['timestamp'] = pd.to_datetime(df['timestamp'])
-   df = df.set_index('timestamp')
-
-   return df
 
 @isolation_forest.post("/IsolationForest/")
 async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataFrame:
