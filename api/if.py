@@ -6,16 +6,16 @@ import pickle
 
 from pipeline.preprocess import get_preprocessed
 
-isolation_forest = FastAPI()
+ifr = FastAPI()
 
 # Routes
-@isolation_forest.get("/")
+@ifr.get("/")
 async def index():
    return {"api_name": "Isolation Forest"}
 
 
-@isolation_forest.post("/IF/")
-async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataFrame:
+@ifr.post("/IF/")
+async def create_upload_file_if(sensor_data: UploadFile = File(...)) :
     #read from csv
    dframe = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
    #preprocess data
@@ -40,6 +40,6 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    res['machine_status'] = dframe['machine_status']
    print(res)
 
-   filepath = "./data/uploads/if.csv"
+   filepath = "./data/uploads/ifr.csv"
    res.to_csv(filepath, index=False)
    return {"csv": filepath}
