@@ -94,10 +94,10 @@ def make_api_call(url, file_details):
     res = requests.post(url, files=files)
     return res.json()
 
-def plot_anomalies(df_path, dfBroken, model):
+def plot_anomalies(anomalies_df, dfBroken, model):
 
     #make a df from the api respnse
-    anomalies_df  = pd.read_csv(df_path)
+    #anomalies_df  = pd.read_csv(df_path)
     
     #plot detected anomalies vs the actual anomalies in the same graph
     st.subheader("Detected Anomalies by "+model)
@@ -224,10 +224,9 @@ def main():
                     #set timestamp as index
                     df_anomalies['timestamp'] = pd.to_datetime(df_anomalies['timestamp'])
                     df_anomalies = df_anomalies.set_index('timestamp')
-                    
-                    st.dataframe(df_anomalies)
-                    # anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
-                    # all_anomalies_df.append(anomalies_df)
+
+                    anomalies_df = plot_anomalies(df_anomalies, dfBroken, models[i])
+                    all_anomalies_df.append(anomalies_df)
             
             #common anomalies plot
             if len(all_anomalies_df) > 1:
