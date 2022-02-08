@@ -218,9 +218,11 @@ def main():
                     filepathAnomalies = dict['anomaly_csv']
                     filepathSampledSensorData = dict['sensor_csv']
                     plot_anamoly_graph(filepathSampledSensorData, filepathAnomalies)
-                #else:
-                    # dict = results[i]
-                    # df_path = dict['csv']
+                else:
+                    dict = results[i]
+                    df_list = dict['df_anomalies']
+                    df_anomalies = pd.DataFrame(df_list)
+                    st.dataframe(df_anomalies)
                     # anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
                     # all_anomalies_df.append(anomalies_df)
             
