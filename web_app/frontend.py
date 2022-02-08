@@ -8,6 +8,7 @@ import os
 import time
 import asyncio
 import aiohttp
+import json
 
 st.set_page_config(layout="wide")
 
@@ -86,8 +87,9 @@ async def make_async_api_call(url, file_details):
     async with aiohttp.ClientSession() as session:
         async with session.post(url, data = files) as res:
             data = await res.json()
-            st.write(data)
-            return data
+            content = json.dumps(data, indent = 4, sort_keys=True)
+            st.write(content.text)
+            return content
 
 def make_api_call(url, file_details):
     files = {'sensor_data': open('./data/uploads/'+file_details['FileName'], 'rb')}
@@ -217,10 +219,10 @@ def main():
                     filepathSampledSensorData = dict['sensor_csv']
                     plot_anamoly_graph(filepathSampledSensorData, filepathAnomalies)
                 else:
-                    dict = results[i]
-                    df_path = dict['csv']
-                    anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
-                    all_anomalies_df.append(anomalies_df)
+                    # dict = results[i]
+                    # df_path = dict['csv']
+                    # anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
+                    # all_anomalies_df.append(anomalies_df)
             
             #common anomalies plot
             if len(all_anomalies_df) > 1:
