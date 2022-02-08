@@ -40,15 +40,15 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
     #               {1:'1' , -1:'-1'})
    #print(res['PredictedAnamoly'].value_counts())
 
-   res['timestamp'] = dframe['timestamp']
-   res['PredictedAnamoly'] = predictions
-   res['machine_status'] = dframe['machine_status']
+   #res['timestamp'] = dframe['timestamp']
+   dframe['PredictedAnamoly'] = predictions
+   #res['machine_status'] = dframe['machine_status']
 
    # res['machine_status'] = res['machine_status'].astype(str)
    # res['sensor_values'] = res['sensor_values'].astype(float)
    # res['PredictedAnamoly'] = res['PredictedAnamoly'].astype(float)
 
-   df_list = res.values.tolist()
+   df_list = dframe.values.tolist()
 
    # filepath = "./data/uploads/ifr.csv"
    # res.to_csv(os.path.abspath(filepath), index=False)
