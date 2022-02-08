@@ -9,12 +9,12 @@ from pipeline.preprocess import get_preprocessed
 ifr = FastAPI()
 
 # Routes
-@ifr.get("/")
-async def index():
-   return {"api_name": "Isolation Forest"}
+# @ifr.get("/")
+# async def index():
+#    return {"api_name": "Isolation Forest"}
 
 
-@ifr.post("/IF/")
+@ifr.post("/")
 async def create_upload_file_if(sensor_data: UploadFile = File(...)) :
     #read from csv
    dframe = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
