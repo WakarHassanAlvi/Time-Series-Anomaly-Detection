@@ -218,7 +218,7 @@ def main():
                     filepathAnomalies = dict['anomaly_csv']
                     filepathSampledSensorData = dict['sensor_csv']
                     plot_anamoly_graph(filepathSampledSensorData, filepathAnomalies)
-                else:
+                #else:
                     # dict = results[i]
                     # df_path = dict['csv']
                     # anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
