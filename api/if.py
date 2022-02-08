@@ -41,7 +41,9 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    res['machine_status'] = dframe['machine_status']
    print(res)
 
-   filepath = "./data/uploads/ifr.csv"
-   res.to_csv(os.path.abspath(filepath), index=False)
+   # filepath = "./data/uploads/ifr.csv"
+   # res.to_csv(os.path.abspath(filepath), index=False)
    
-   return {"csv": os.path.abspath(filepath)}
+   # return {"csv": os.path.abspath(filepath)}
+
+   return res
