@@ -219,7 +219,12 @@ def main():
                 else:
                     dict = results[i]
                     df_list = dict['anomalies_df']
-                    df_anomalies = pd.DataFrame(df_list)
+   
+                    df_anomalies = pd.DataFrame(df_list, columns =['timestamp', 'sensor_values', 'machine_status', 'PredictedAnamoly'])
+                    #set timestamp as index
+                    df_anomalies['timestamp'] = pd.to_datetime(df_anomalies['timestamp'])
+                    df_anomalies = df_anomalies.set_index('timestamp')
+                    
                     st.dataframe(df_anomalies)
                     # anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
                     # all_anomalies_df.append(anomalies_df)
