@@ -6,7 +6,7 @@ import pickle
 import os
 
 
-from pipeline.preprocess import get_preprocessed
+from pipeline.preprocess import get_preprocessed, impute_missing
 
 ifr = FastAPI()
 
@@ -19,11 +19,11 @@ ifr = FastAPI()
 @ifr.post("/")
 async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataFrame:
     #read from csv
-   dframe = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
+   df = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
    #preprocess data
-   res = get_preprocessed(dframe)
+   dframe = get_preprocessed(df)
    #define x
-   X = res.iloc[:, 0:1]
+   X = dframe.iloc[:, 0:1]
    #X = X.dropna()
    
    #load model
@@ -40,15 +40,17 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
     #               {1:'1' , -1:'-1'})
    #print(res['PredictedAnamoly'].value_counts())
 
-   #res['timestamp'] = dframe['timestamp']
-   dframe['PredictedAnamoly'] = predictions
-   #res['machine_status'] = dframe['machine_status']
+   # res = dframe.copy()
+   # res['PredictedAnamoly'] = predictions
+   # res['machine_status'] = dframe['machine_status']
+   df = impute_missing(df)
+   df['PredictedAnamoly'] = predictions
 
    # res['machine_status'] = res['machine_status'].astype(str)
    # res['sensor_values'] = res['sensor_values'].astype(float)
    # res['PredictedAnamoly'] = res['PredictedAnamoly'].astype(float)
 
-   df_list = dframe.values.tolist()
+   df_list = df.values.tolist()
 
    # filepath = "./data/uploads/ifr.csv"
    # res.to_csv(os.path.abspath(filepath), index=False)
