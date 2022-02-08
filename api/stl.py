@@ -17,8 +17,8 @@ async def create_upload_file_stl(sensor_data: UploadFile = File(...)):
    #preprocess data
    dframe = get_preprocessed(df)
    #define x
-   X = dframe.iloc[:, 0:1]
-   print(X)
+   df = dframe.iloc[:, 0:1]
+   print(df)
    # sampled_df = sample_sensor_data(df)
    # print(sampled_df)
    # stlData = stl_model(sampled_df)
