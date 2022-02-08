@@ -2,6 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 import pandas as pd
 from io import StringIO
 import pickle
+import os
 
 
 from pipeline.preprocess import get_preprocessed
@@ -42,4 +43,5 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) :
 
    filepath = "./data/uploads/ifr.csv"
    res.to_csv(filepath, index=False)
-   return {"csv": filepath}
+   
+   return {"csv": os.path.abspath(filepath)}
