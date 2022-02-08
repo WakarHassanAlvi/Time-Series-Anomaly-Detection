@@ -16,7 +16,7 @@ ifr = FastAPI()
 
 
 @ifr.post("/")
-async def create_upload_file_if(sensor_data: UploadFile = File(...)) :
+async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataFrame:
     #read from csv
    dframe = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
    #preprocess data
