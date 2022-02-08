@@ -41,8 +41,8 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    res['machine_status'] = dframe['machine_status']
 
    res['machine_status'] = res['machine_status'].astype(str)
-   res['sensor_values'] = res['sensor_values'].astype(str)
-   res['PredictedAnamoly'] = res['PredictedAnamoly'].astype(str)
+   res['sensor_values'] = res['sensor_values'].astype(float)
+   res['PredictedAnamoly'] = res['PredictedAnamoly'].astype(float)
 
    #print(res)
 
