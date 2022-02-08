@@ -13,8 +13,8 @@ st.set_page_config(layout="wide")
 
 sys.path.insert(0, '../api')
 
-lof_url = 'http://ts-anomaly-detection-lof.herokuapp.com/LOF'
-if_url = 'http://ts-anomaly-detection-if.herokuapp.com/IF'
+lof_url = 'https://ts-anomaly-detection-lof.herokuapp.com/LOF'
+if_url = 'https://ts-anomaly-detection-if.herokuapp.com/IF'
 stl_url = 'https://detect-anomalies.herokuapp.com/STL/'
 
 def save_uploadedfile(uploadedfile):
@@ -205,7 +205,6 @@ def main():
                 urls = [if_url,lof_url, stl_url]
                 models = ["Isolation Forest", "LOF", "STL"]
             
-            st.write(urls)
             start = time.time()
 
             all_anomalies_df = []
