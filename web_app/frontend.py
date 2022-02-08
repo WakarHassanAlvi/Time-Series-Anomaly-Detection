@@ -16,7 +16,7 @@ sys.path.insert(0, '../api')
 
 lof_url = 'https://ts-anomaly-detection-lof.herokuapp.com/'
 if_url = 'https://ts-anomaly-detection-if.herokuapp.com/'
-stl_url = 'https://detect-anomalies.herokuapp.com/STL/'
+stl_url = 'https://ts-anomaly-detection-stl.herokuapp.com/'
 
 def save_uploadedfile(uploadedfile):
 
@@ -150,7 +150,7 @@ def main():
     if stl:
         st.write('Set threshold coefficient:')
         coef = st.slider('', 1, 5, 3)
-        stl_url = 'https://detect-anomalies.herokuapp.com/STL/?coef='+ str(coef)
+        stl_url = 'https://ts-anomaly-detection-stl.herokuapp.com/?coef='+ str(coef)
         
 
     if st.button("Check Anomalies"):
