@@ -30,15 +30,18 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    loaded_model = pickle.load(open('./models/model_if.pkl', 'rb'))
    #make prediction
    y_pred = loaded_model.predict(X)
-   print(type(y_pred))
-   res = pd.concat([X.reset_index(), pd.DataFrame(data=y_pred, columns=['PredictedAnamoly'])], axis=1)
-   res['timestamp'] = pd.to_datetime(res['timestamp'])
-   res = res.set_index('timestamp')
+   predictions = y_pred.tolist()
+
+   # res = pd.concat([X.reset_index(), pd.DataFrame(data=y_pred, columns=['PredictedAnamoly'])], axis=1)
+   # res['timestamp'] = pd.to_datetime(res['timestamp'])
+   # res = res.set_index('timestamp')
 
    #res['PredictedAnamoly'] = res['PredictedAnamoly'].map(
     #               {1:'1' , -1:'-1'})
    #print(res['PredictedAnamoly'].value_counts())
 
+   res = dframe.copy()
+   res['PredictedAnamoly'] = predictions
    res['machine_status'] = dframe['machine_status']
 
    # res['machine_status'] = res['machine_status'].astype(str)
@@ -52,4 +55,4 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    
    # return {"csv": os.path.abspath(filepath)}
 
-   #return {"df_len": res.size}
+   return {"df_len": res.size}
