@@ -46,4 +46,4 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    
    # return {"csv": os.path.abspath(filepath)}
 
-   return {"df_len": len(res)}
+   return {"df_len": res.size}
