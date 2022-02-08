@@ -31,7 +31,7 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    #make prediction
    y_pred = loaded_model.predict(X)
    predictions = y_pred.tolist()
-
+   print(type(predictions))
    # res = pd.concat([X.reset_index(), pd.DataFrame(data=y_pred, columns=['PredictedAnamoly'])], axis=1)
    # res['timestamp'] = pd.to_datetime(res['timestamp'])
    # res = res.set_index('timestamp')
@@ -48,11 +48,11 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    # res['sensor_values'] = res['sensor_values'].astype(float)
    # res['PredictedAnamoly'] = res['PredictedAnamoly'].astype(float)
 
-   #print(res)
+   print(res)
 
    # filepath = "./data/uploads/ifr.csv"
    # res.to_csv(os.path.abspath(filepath), index=False)
    
    # return {"csv": os.path.abspath(filepath)}
 
-   return {"df_len": res.size}
+   #return {"df_len": res.size}
