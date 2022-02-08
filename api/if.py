@@ -3,7 +3,6 @@ from git import typ
 import pandas as pd
 from io import StringIO
 import pickle
-import os
 
 
 from pipeline.preprocess import get_preprocessed, impute_missing
@@ -11,13 +10,8 @@ from pipeline.preprocess import get_preprocessed, impute_missing
 ifr = FastAPI()
 
 # Routes
-# @ifr.get("/")
-# async def index():
-#    return {"api_name": "Isolation Forest"}
-
-
 @ifr.post("/")
-async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataFrame:
+async def create_upload_file_if(sensor_data: UploadFile = File(...)):
     #read from csv
    df = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
    #preprocess data
