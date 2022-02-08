@@ -14,7 +14,7 @@ st.set_page_config(layout="wide")
 
 sys.path.insert(0, '../api')
 
-lof_url = 'https://ts-anomaly-detection-lof.herokuapp.com/LOF'
+lof_url = 'https://ts-anomaly-detection-lof.herokuapp.com/'
 if_url = 'https://ts-anomaly-detection-if.herokuapp.com/'
 stl_url = 'https://detect-anomalies.herokuapp.com/STL/'
 
