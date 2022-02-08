@@ -21,9 +21,9 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
     #read from csv
    dframe = pd.read_csv(StringIO(str(sensor_data.file.read(), 'utf-8')), encoding='utf-8')
    #preprocess data
-   dframe = get_preprocessed(dframe)
+   res = get_preprocessed(dframe)
    #define x
-   X = dframe.iloc[:, 0:1]
+   X = res.iloc[:, 0:1]
    #X = X.dropna()
    
    #load model
@@ -40,7 +40,7 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
     #               {1:'1' , -1:'-1'})
    #print(res['PredictedAnamoly'].value_counts())
 
-   res = dframe.copy()
+   res['timestamp'] = dframe['timestamp']
    res['PredictedAnamoly'] = predictions
    res['machine_status'] = dframe['machine_status']
 
