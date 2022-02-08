@@ -218,7 +218,7 @@ def main():
                     plot_anamoly_graph(filepathSampledSensorData, filepathAnomalies)
                 else:
                     dict = results[i]
-                    df_list = dict['df_anomalies']
+                    df_list = dict['anomalies_df']
                     df_anomalies = pd.DataFrame(df_list)
                     st.dataframe(df_anomalies)
                     # anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
