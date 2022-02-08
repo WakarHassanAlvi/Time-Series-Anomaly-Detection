@@ -9,7 +9,7 @@ stl_decomposition = FastAPI()
 
 # Routes
 @stl_decomposition.post("/")
-async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...)) -> dict:
+async def create_upload_file_stl(sensor_data: UploadFile = File(...)):
    
    #df = get_sensor_data(sensor_data)
    #read from csv
@@ -17,8 +17,8 @@ async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...))
    #preprocess data
    dframe = get_preprocessed(df)
    #define x
-   df = dframe.iloc[:, 0:1]
-   print(df)
+   X = dframe.iloc[:, 0:1]
+   print(X)
    # sampled_df = sample_sensor_data(df)
    # print(sampled_df)
    # stlData = stl_model(sampled_df)
