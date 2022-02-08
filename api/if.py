@@ -39,7 +39,12 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    #print(res['PredictedAnamoly'].value_counts())
 
    res['machine_status'] = dframe['machine_status']
-   print(res)
+
+   res['machine_status'] = res['machine_status'].astype(str)
+   res['sensor_values'] = res['sensor_values'].astype(str)
+   res['PredictedAnamoly'] = res['PredictedAnamoly'].astype(str)
+
+   #print(res)
 
    # filepath = "./data/uploads/ifr.csv"
    # res.to_csv(os.path.abspath(filepath), index=False)
