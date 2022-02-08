@@ -34,8 +34,8 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    res['timestamp'] = pd.to_datetime(res['timestamp'])
    res = res.set_index('timestamp')
 
-   res['PredictedAnamoly'] = res['PredictedAnamoly'].map(
-                   {1:'1' , -1:'-1'})
+   #res['PredictedAnamoly'] = res['PredictedAnamoly'].map(
+    #               {1:'1' , -1:'-1'})
    #print(res['PredictedAnamoly'].value_counts())
 
    res['machine_status'] = dframe['machine_status']
@@ -46,4 +46,4 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    
    # return {"csv": os.path.abspath(filepath)}
 
-   #return {"df_len": res.size}
+   return {"df_len": res.size}
