@@ -205,6 +205,7 @@ def main():
                 urls = [if_url,lof_url, stl_url]
                 models = ["Isolation Forest", "LOF", "STL"]
             
+            st.write(urls)
             start = time.time()
 
             all_anomalies_df = []
