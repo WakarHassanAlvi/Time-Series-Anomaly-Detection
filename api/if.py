@@ -48,11 +48,11 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)) -> pd.DataF
    # res['sensor_values'] = res['sensor_values'].astype(float)
    # res['PredictedAnamoly'] = res['PredictedAnamoly'].astype(float)
 
-   print(res)
+   df_list = res.values.tolist()
 
    # filepath = "./data/uploads/ifr.csv"
    # res.to_csv(os.path.abspath(filepath), index=False)
    
    # return {"csv": os.path.abspath(filepath)}
 
-   #return {"df_len": res.size}
+   return {"df_len": len(df_list)}
