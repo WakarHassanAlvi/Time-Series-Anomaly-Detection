@@ -215,11 +215,17 @@ def main():
                     dict = results[i]
 
                     df_anomalies_list = dict['anomalies_df_list']
-                    df_anomalies = pd.DataFrame(df_anomalies_list)
+                    df_anomalies = pd.DataFrame(df_anomalies_list, columns =['timestamp', 'sensor_values', 'resid'])
+                    #set timestamp as index
+                    df_anomalies['timestamp'] = pd.to_datetime(df_anomalies['timestamp'])
+                    df_anomalies = df_anomalies.set_index('timestamp')
                     st.dataframe(df_anomalies)
 
                     df_sensor_list = dict['sensor_df_list']
-                    df_sensor = pd.DataFrame(df_sensor_list)
+                    df_sensor = pd.DataFrame(df_sensor_list, columns =['timestamp', 'sensor_values'])
+                    #set timestamp as index
+                    df_sensor['timestamp'] = pd.to_datetime(df_sensor['timestamp'])
+                    df_sensor = df_sensor.set_index('timestamp')
                     st.dataframe(df_sensor)
                     #plot_anamoly_graph(df_sensor, df_anomalies)
                 else:
