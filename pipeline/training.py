@@ -18,8 +18,8 @@ def get_anomaly_limits(res, coefficient):
     res_mu = res.mean()
     res_dev = res.std()
 
-    lower = res_mu - coefficient * res_dev
-    upper = res_mu + coefficient * res_dev
+    lower = res_mu - int(coefficient) * res_dev
+    upper = res_mu + int(coefficient) * res_dev
     return lower, upper
 
 
