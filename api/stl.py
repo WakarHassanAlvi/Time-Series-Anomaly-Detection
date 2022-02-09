@@ -2,7 +2,7 @@ from fastapi import FastAPI, File, UploadFile
 import pandas as pd
 from io import StringIO
 
-from pipeline.preprocess import get_preprocessed
+from pipeline.preprocess import get_preprocessed, sample_sensor_data
 
 
 stl_decomposition = FastAPI()
@@ -18,9 +18,9 @@ async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...))
    dframe = get_preprocessed(df)
    #define x
    df = dframe.iloc[:, 0:1]
-   print(df)
-   # sampled_df = sample_sensor_data(df)
-   # print(sampled_df)
+   
+   sampled_df = sample_sensor_data(df)
+   print(sampled_df)
    # stlData = stl_model(sampled_df)
    # l, u = get_anomaly_limits(stlData.resid, coef)
    # anomalies = get_anomalies(stlData.resid, sampled_df, l, u)
