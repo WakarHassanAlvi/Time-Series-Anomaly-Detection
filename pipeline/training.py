@@ -9,9 +9,6 @@ from statsmodels.tsa.seasonal import STL
 from pipeline.preprocess import encoder, get_preprocessed, remove_col, get_indexed_df
 
 def stl_model(dfsensor):
-    #print(dfsensor.columns)
-    #dfsensor['0'] = dfsensor['0'].astype(float)
-    dfsensor = dfsensor.apply(pd.to_numeric) # convert all columns of DataFrame
     data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
     res = STL(data, period=15).fit()
     return res
@@ -63,15 +60,7 @@ def fit_model_lof(dfr):
     # save the model to disk
     filename2 = '../models/model_lof.pkl'
     pickle.dump(model2, open(filename2, 'wb'))
-
-
-# scores_prediction = model.decision_function(X)
-# y_pred = model.predict(X)
-# y_pred[y_pred == 1] = 0
-# y_pred[y_pred == -1] = 1
-# n_errors = (y_pred != y).sum()
-# print("Isolation Forest: {}".format(n_errors))
-# print("Accuracy Score :")
+    
 
 if __name__ == '__main__':
     import os

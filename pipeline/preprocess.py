@@ -13,7 +13,6 @@ MODELS_DIR = ROOT_DIR / 'models'
 
 
 def get_sensor_data(file):
-    #data = pd.read_csv(DATA_DIR/'uploads'/file, parse_dates=True)
     data = pd.read_csv(StringIO(str(file.file.read(), 'utf-8')), encoding='utf-8')
     data.iloc[:, 1:2].fillna((data.iloc[:, 1:2].mean()), inplace=True)
     data['timestamp'] = pd.to_datetime(data['timestamp'])
