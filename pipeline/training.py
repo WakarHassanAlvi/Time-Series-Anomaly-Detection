@@ -22,7 +22,6 @@ def get_anomaly_limits(res, coefficient):
     upper = res_mu + float(coefficient) * res_dev
     return lower, upper
 
-
 def get_anomalies(res, dfsensor, lower, upper):
     dfres = pd.DataFrame(data=res)
     dfres = get_indexed_df(dfres, 0)
