@@ -16,7 +16,6 @@ async def create_upload_file_if(sensor_data: UploadFile = File(...)):
    dframe = get_preprocessed(df)
    #define x
    X = dframe.iloc[:, 0:1]
-   #X = X.dropna()
    
    #load model
    loaded_model = pickle.load(open('./models/model_if.pkl', 'rb'))
