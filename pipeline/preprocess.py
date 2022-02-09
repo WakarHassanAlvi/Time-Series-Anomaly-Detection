@@ -1,8 +1,6 @@
 from io import StringIO
 from pathlib import Path
-
 import pandas as pd
-# set a path
 from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
 
