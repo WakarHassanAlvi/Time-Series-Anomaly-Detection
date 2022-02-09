@@ -1,17 +1,18 @@
 import pandas as pd
+from pathlib import Path
 import pickle
 
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 from statsmodels.tsa.seasonal import STL
 
-from pipeline.preprocess import encoder, get_indexed_df
+from pipeline.preprocess import encoder, get_preprocessed, get_indexed_df
 
 def stl_model(dfsensor):
     dfsensor = dfsensor.apply(pd.to_numeric) # convert all columns of DataFrame
-    data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
-    res = STL(data, period=15).fit()
-    return res
+    #data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
+    #res = STL(data, period=15).fit()
+    return dfsensor
 
 def get_anomaly_limits(res, coefficient):
     res_mu = res.mean()
@@ -20,6 +21,7 @@ def get_anomaly_limits(res, coefficient):
     lower = res_mu - coefficient * res_dev
     upper = res_mu + coefficient * res_dev
     return lower, upper
+
 
 def get_anomalies(res, dfsensor, lower, upper):
     dfres = pd.DataFrame(data=res)
@@ -35,6 +37,7 @@ def get_y(dfr):
     y = encoder(dfr)
     # print(y)
     return y
+
 
 def get_X(dfr):
     X = dfr.iloc[:, 0:1]
@@ -57,3 +60,15 @@ def fit_model_lof(dfr):
     # save the model to disk
     filename2 = '../models/model_lof.pkl'
     pickle.dump(model2, open(filename2, 'wb'))
+
+
+if __name__ == '__main__':
+    import os
+    print(os.getcwd())
+    ROOT_DIR = Path('../')
+    MODELS_DIR = ROOT_DIR / 'models'
+    data = pd.read_csv('../data/uploads/Sensortest.csv')
+    #dfr = remove_col(data, 'Unnamed: 0', 'sensor_15')
+    dfr = get_preprocessed(data.iloc[:, 0:2])
+    fit_model_if(dfr)
+    fit_model_lof(dfr)
