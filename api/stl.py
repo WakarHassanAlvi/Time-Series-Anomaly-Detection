@@ -29,15 +29,4 @@ async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...))
    dfsensor = dfsensor.reset_index()
    dfsensor_list = dfsensor.values.tolist()
 
-   # #dfsensor, anomalies = stl_decomposition(sensor_data, int(coef))
-   # anomalies = anomalies.rename({'0': 'sensor_values'}, axis=1).reset_index()
-   # dfsensor = dfsensor.reset_index()
-   # filepathAnomalies = "./data/uploads/stl.csv"
-   # filepathSampledSensorData = "./data/uploads/sampledSensorStl.csv"
-   
-   # # to upload files
-   # anomalies.to_csv(filepathAnomalies, index=False)
-   # dfsensor.to_csv(filepathSampledSensorData, index=False)
-
-   # return {"anomaly_csv": filepathAnomalies, "sensor_csv": filepathSampledSensorData}
    return {"anomalies_df_list": anomalies_list, "sensor_df_list": dfsensor_list}
