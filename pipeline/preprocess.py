@@ -1,11 +1,8 @@
 from io import StringIO
 from pathlib import Path
-
 import pandas as pd
-# set a path
 from sklearn import preprocessing
 from sklearn.preprocessing import StandardScaler
-from statsmodels.tsa.seasonal import STL
 
 ROOT_DIR = Path('./')
 DATA_DIR = ROOT_DIR / 'data'
@@ -79,11 +76,3 @@ def sample_sensor_data(df):
     df = df.set_index('timestamp')
     grouped = df.groupby('timestamp').apply(lambda x: (x.iloc[0].min(), x.iloc[0].max()))
     return pd.DataFrame(grouped.explode())
-
-def stl_model(dfsensor):
-    #print(dfsensor.columns)
-    #dfsensor['0'] = dfsensor['0'].astype(float)
-    dfsensor = dfsensor.apply(pd.to_numeric) # convert all columns of DataFrame
-    data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
-    res = STL(data, period=15).fit()
-    return res
