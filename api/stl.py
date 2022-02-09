@@ -3,7 +3,7 @@ import pandas as pd
 from io import StringIO
 
 from pipeline.preprocess import get_preprocessed, sample_sensor_data
-from pipeline.training import stl_model
+#from pipeline.training import stl_model
 
 
 stl_decomposition = FastAPI()
