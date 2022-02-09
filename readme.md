@@ -81,6 +81,3 @@ For each of the models i.e. Isolation Forest, LOF and STL Decomposition - we hav
 3. For STL Decomposition - https://ts-anomaly-detection-stl.herokuapp.com/docs<br><br>
 
 The deployed Streamlit Cloud Web App makes the API calls to these Heroku API endpoints to get the anomalies. If you want to check these endpoints individually, just click on the respective endpoint and try out the post method by uploading the test csv file.
-<br><br>
-For each of the Isolation Forest, LOF and STL Decomposition - this web app makes requests to <b>Heroku Endpoints</b> of each of the API's to get the anomalies as response.
-<br><br>
