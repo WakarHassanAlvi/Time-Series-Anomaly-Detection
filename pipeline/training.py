@@ -4,15 +4,15 @@ import pickle
 
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
-#from statsmodels.tsa.seasonal import STL
+from statsmodels.tsa.seasonal import STL
 
 from pipeline.preprocess import encoder, get_preprocessed, get_indexed_df
 
 def stl_model(dfsensor):
     dfsensor = dfsensor.apply(pd.to_numeric) # convert all columns of DataFrame
-    #data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
-    #res = STL(data, period=15).fit()
-    return dfsensor
+    data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
+    res = STL(data, period=15).fit()
+    return res
 
 def get_anomaly_limits(res, coefficient):
     res_mu = res.mean()
