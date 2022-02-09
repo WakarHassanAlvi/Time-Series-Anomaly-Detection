@@ -8,7 +8,6 @@ import os
 import time
 import asyncio
 import aiohttp
-import json
 
 st.set_page_config(layout="wide")
 
@@ -95,9 +94,6 @@ def make_api_call(url, file_details):
     return res.json()
 
 def plot_anomalies(anomalies_df, dfBroken, model):
-
-    #make a df from the api respnse
-    #anomalies_df  = pd.read_csv(df_path)
     
     #plot detected anomalies vs the actual anomalies in the same graph
     st.subheader("Detected Anomalies by "+model)

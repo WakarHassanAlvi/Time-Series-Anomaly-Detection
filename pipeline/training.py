@@ -9,8 +9,6 @@ from statsmodels.tsa.seasonal import STL
 from pipeline.preprocess import encoder, get_preprocessed, remove_col, get_indexed_df
 
 def stl_model(dfsensor):
-    #print(dfsensor.columns)
-    #dfsensor['0'] = dfsensor['0'].astype(float)
     dfsensor = dfsensor.apply(pd.to_numeric) # convert all columns of DataFrame
     data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
     res = STL(data, period=15).fit()
