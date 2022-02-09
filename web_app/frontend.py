@@ -213,9 +213,15 @@ def main():
             for i in range(len(results)):
                 if models[i]=="STL":
                     dict = results[i]
-                    filepathAnomalies = dict['anomaly_csv']
-                    filepathSampledSensorData = dict['sensor_csv']
-                    plot_anamoly_graph(filepathSampledSensorData, filepathAnomalies)
+
+                    df_anomalies_list = dict['anomalies_df_list']
+                    df_anomalies = pd.DataFrame(df_anomalies_list)
+                    st.dataframe(df_anomalies)
+
+                    df_sensor_list = dict['sensor_df_list']
+                    df_sensor = pd.DataFrame(df_sensor_list)
+                    st.dataframe(df_sensor)
+                    #plot_anamoly_graph(df_sensor, df_anomalies)
                 else:
                     dict = results[i]
                     df_list = dict['anomalies_df']
