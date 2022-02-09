@@ -116,15 +116,8 @@ def plot_anomalies(anomalies_df, dfBroken, model):
 
     return anomalies_df
 
-def plot_anamoly_graph(dfsensorPath, dfanomaliPath):
-    dfsensorIndexed = pd.read_csv(dfsensorPath)
-    dfsensorIndexed['timestamp'] = pd.to_datetime(dfsensorIndexed['timestamp'])
-    dfsensorIndexed = dfsensorIndexed.set_index('timestamp')
-
-    dfanomali = pd.read_csv(dfanomaliPath)
-    dfanomali['timestamp'] = pd.to_datetime(dfanomali['timestamp'])
-    dfanomali = dfanomali.set_index('timestamp')
-
+def plot_anamoly_graph(dfsensorIndexed, dfanomali):
+    
     st.subheader("Detected Anomalies by STL Decomposition")
 
     fig = plt.figure(figsize=(30, 8))
@@ -219,15 +212,14 @@ def main():
                     #set timestamp as index
                     df_anomalies['timestamp'] = pd.to_datetime(df_anomalies['timestamp'])
                     df_anomalies = df_anomalies.set_index('timestamp')
-                    st.dataframe(df_anomalies)
 
                     df_sensor_list = dict['sensor_df_list']
                     df_sensor = pd.DataFrame(df_sensor_list, columns =['timestamp', 'sensor_values'])
                     #set timestamp as index
                     df_sensor['timestamp'] = pd.to_datetime(df_sensor['timestamp'])
                     df_sensor = df_sensor.set_index('timestamp')
-                    st.dataframe(df_sensor)
-                    #plot_anamoly_graph(df_sensor, df_anomalies)
+                    
+                    plot_anamoly_graph(df_sensor, df_anomalies)
                 else:
                     dict = results[i]
                     df_list = dict['anomalies_df']
