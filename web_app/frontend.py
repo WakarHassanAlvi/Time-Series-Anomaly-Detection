@@ -8,14 +8,15 @@ import os
 import time
 import asyncio
 import aiohttp
+import json
 
 st.set_page_config(layout="wide")
 
 sys.path.insert(0, '../api')
 
 lof_url = 'http://127.0.0.1:8000/LOF'
-if_url = 'http://127.0.0.1:8000/IsolationForest'
-stl_url = 'http://127.0.0.1:8000/STL/'
+if_url = 'http://127.0.0.1:8000/IF'
+stl_url = 'http://127.0.0.1:8000/STL'
 
 def save_uploadedfile(uploadedfile):
 
@@ -93,10 +94,10 @@ def make_api_call(url, file_details):
     res = requests.post(url, files=files)
     return res.json()
 
-def plot_anomalies(df_path, dfBroken, model):
+def plot_anomalies(anomalies_df, dfBroken, model):
 
     #make a df from the api respnse
-    anomalies_df  = pd.read_csv(df_path)
+    #anomalies_df  = pd.read_csv(df_path)
     
     #plot detected anomalies vs the actual anomalies in the same graph
     st.subheader("Detected Anomalies by "+model)
@@ -115,15 +116,8 @@ def plot_anomalies(df_path, dfBroken, model):
 
     return anomalies_df
 
-def plot_anamoly_graph(dfsensorPath, dfanomaliPath):
-    dfsensorIndexed = pd.read_csv(dfsensorPath)
-    dfsensorIndexed['timestamp'] = pd.to_datetime(dfsensorIndexed['timestamp'])
-    dfsensorIndexed = dfsensorIndexed.set_index('timestamp')
-
-    dfanomali = pd.read_csv(dfanomaliPath)
-    dfanomali['timestamp'] = pd.to_datetime(dfanomali['timestamp'])
-    dfanomali = dfanomali.set_index('timestamp')
-
+def plot_anamoly_graph(dfsensorIndexed, dfanomali):
+    
     st.subheader("Detected Anomalies by STL Decomposition")
 
     fig = plt.figure(figsize=(30, 8))
@@ -212,13 +206,30 @@ def main():
             for i in range(len(results)):
                 if models[i]=="STL":
                     dict = results[i]
-                    filepathAnomalies = dict['anomaly_csv']
-                    filepathSampledSensorData = dict['sensor_csv']
-                    plot_anamoly_graph(filepathSampledSensorData, filepathAnomalies)
+
+                    df_anomalies_list = dict['anomalies_df_list']
+                    df_anomalies = pd.DataFrame(df_anomalies_list, columns =['timestamp', 'sensor_values', 'resid'])
+                    #set timestamp as index
+                    df_anomalies['timestamp'] = pd.to_datetime(df_anomalies['timestamp'])
+                    df_anomalies = df_anomalies.set_index('timestamp')
+
+                    df_sensor_list = dict['sensor_df_list']
+                    df_sensor = pd.DataFrame(df_sensor_list, columns =['timestamp', 'sensor_values'])
+                    #set timestamp as index
+                    df_sensor['timestamp'] = pd.to_datetime(df_sensor['timestamp'])
+                    df_sensor = df_sensor.set_index('timestamp')
+                    
+                    plot_anamoly_graph(df_sensor, df_anomalies)
                 else:
                     dict = results[i]
-                    df_path = dict['csv']
-                    anomalies_df = plot_anomalies(df_path, dfBroken, models[i])
+                    df_list = dict['anomalies_df']
+   
+                    df_anomalies = pd.DataFrame(df_list, columns =['timestamp', 'sensor_values', 'machine_status', 'PredictedAnamoly'])
+                    #set timestamp as index
+                    df_anomalies['timestamp'] = pd.to_datetime(df_anomalies['timestamp'])
+                    df_anomalies = df_anomalies.set_index('timestamp')
+
+                    anomalies_df = plot_anomalies(df_anomalies, dfBroken, models[i])
                     all_anomalies_df.append(anomalies_df)
             
             #common anomalies plot
