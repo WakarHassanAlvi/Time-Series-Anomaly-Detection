@@ -38,4 +38,4 @@ async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...))
    # dfsensor.to_csv(filepathSampledSensorData, index=False)
 
    # return {"anomaly_csv": filepathAnomalies, "sensor_csv": filepathSampledSensorData}
-   return {"anomalies": anomalies_list, "sensor": dfsensor_list}
+   return {"anomalies_df_list": anomalies_list, "sensor_df_list": dfsensor_list}
