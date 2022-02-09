@@ -11,7 +11,7 @@ from pipeline.preprocess import encoder, get_preprocessed, remove_col, get_index
 def stl_model(dfsensor):
     #print(dfsensor.columns)
     #dfsensor['0'] = dfsensor['0'].astype(float)
-    #dfsensor = dfsensor.apply(pd.to_numeric) # convert all columns of DataFrame
+    dfsensor = dfsensor.apply(pd.to_numeric) # convert all columns of DataFrame
     data = dfsensor.resample('D').mean().ffill()  # D-days, M-month, A-DEC- anual, Q-DEC-quarterly
     res = STL(data, period=15).fit()
     return res

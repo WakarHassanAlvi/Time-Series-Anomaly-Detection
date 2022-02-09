@@ -10,3 +10,4 @@ aiohttp==3.8.1
 python-multipart==0.0.5
 seaborn==0.11.1
 gunicorn==20.1.0
+statsmodels==0.12.2
