@@ -9,7 +9,7 @@ stl_decomposition = FastAPI()
 
 # Routes
 @stl_decomposition.post("/")
-async def create_upload_file_stl(sensor_data: UploadFile = File(...)):
+async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...)):
    
    #df = get_sensor_data(sensor_data)
    #read from csv
