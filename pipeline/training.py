@@ -1,12 +1,12 @@
-import pickle
-from pathlib import Path
 import pandas as pd
+from pathlib import Path
+import pickle
 
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
 from statsmodels.tsa.seasonal import STL
 
-from pipeline.preprocess import encoder, get_preprocessed, remove_col, get_indexed_df
+from pipeline.preprocess import encoder, get_preprocessed, get_indexed_df
 
 def stl_model(dfsensor):
     #print(dfsensor.columns)
