@@ -4,7 +4,7 @@ import pickle
 
 from sklearn.ensemble import IsolationForest
 from sklearn.neighbors import LocalOutlierFactor
-from statsmodels.tsa.seasonal import STL
+#from statsmodels.tsa.seasonal import STL
 
 from pipeline.preprocess import encoder, get_preprocessed, get_indexed_df
 
