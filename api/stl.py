@@ -20,12 +20,12 @@ async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...))
    df = dframe.iloc[:, 0:1]
 
    sampled_df = sample_sensor_data(df)
-   print(sampled_df)
    stlData = stl_model(sampled_df)
-   print(stlData)
    l, u = get_anomaly_limits(stlData.resid, coef)
    anomalies = get_anomalies(stlData.resid, sampled_df, l, u)
+   anomalies_list = anomalies.values.tolist()
    dfsensor = get_indexed_df(sampled_df, 0)
+   dfsensor_list = dfsensor.values.tolist()
 
    # #dfsensor, anomalies = stl_decomposition(sensor_data, int(coef))
    # anomalies = anomalies.rename({'0': 'sensor_values'}, axis=1).reset_index()
@@ -38,4 +38,4 @@ async def create_upload_file_stl(coef: str, sensor_data: UploadFile = File(...))
    # dfsensor.to_csv(filepathSampledSensorData, index=False)
 
    # return {"anomaly_csv": filepathAnomalies, "sensor_csv": filepathSampledSensorData}
-   return {"csv": "test"}
+   return {"anomalies": anomalies_list, "sensor": dfsensor_list}
